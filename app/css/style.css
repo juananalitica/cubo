@@ -75,6 +75,25 @@ body {
     padding: 20px;
 }
 
+.question-box {
+    margin-top: 15px;
+}
+
+.question-box button {
+    margin-left: 5px;
+}
+
+.respuesta-texto,
+.mensaje-fallback {
+    margin-top: 8px;
+    display: block;
+}
+
+.mensaje-fallback {
+    color: #666666;
+    font-style: italic;
+}
+
 @media (max-width: 600px) {
     .sidebar {
         position: fixed;
