@@ -7,9 +7,7 @@ Aplicación web offline para consulta de indicadores y creación de alertas loca
 1. Abre `index.html` directamente en tu navegador (sin servidor). Toda la navegación
    funciona sin conexión.
 2. Utiliza el menú lateral para cambiar de sección.
-3. En la vista **Alertas** encontrarás un botón **Líder**. Al pulsarlo podrás
-   autenticarte ingresando tu nombre y administrar tus alertas personales.
-   Las alertas se guardan en `localStorage` del navegador.
+
 
 ## Actualización de datos
 
