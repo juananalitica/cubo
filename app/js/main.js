@@ -1,19 +1,39 @@
+import { renderAlertas } from "./views/alertasView.js";
+import { renderSaldos } from "./views/saldosView.js";
+import { renderEmbudo } from "./views/embudoView.js";
+import { renderCanales } from "./views/canalesView.js";
+import { renderCarteraVigente } from "./views/carteraVigenteView.js";
+import { renderCarteraCastigada } from "./views/carteraCastigadaView.js";
+import { renderTacticos } from "./views/tacticosView.js";
+import { renderHistorico } from "./views/historicoView.js";
+import { renderCierreJunta } from "./views/cierreJuntaView.js";
+
 // Funciones para el dashboard Cubo
 
 /**
  * Carga el contenido de una sección dentro del elemento main.
  * @param {string} section Nombre de la sección (archivo HTML)
  */
+const VIEW_MAP = {
+    alertas: renderAlertas,
+    saldos: renderSaldos,
+    embudo: renderEmbudo,
+    canales: renderCanales,
+    cartera_vigente: renderCarteraVigente,
+    cartera_castigada: renderCarteraCastigada,
+    tacticos: renderTacticos,
+    historico: renderHistorico,
+    cierre_de_junta: renderCierreJunta,
+};
+
 function loadSection(section) {
     const container = document.getElementById('content');
-    fetch(`app/views/${section}.html`)
-        .then(response => response.text())
-        .then(html => {
-            container.innerHTML = html;
-        })
-        .catch(() => {
-            container.innerHTML = '<p>No se pudo cargar la sección.</p>';
-        });
+    const render = VIEW_MAP[section];
+    if (render) {
+        container.innerHTML = render();
+    } else {
+        container.innerHTML = '<p>No se pudo cargar la sección.</p>';
+    }
 }
 
 /**
