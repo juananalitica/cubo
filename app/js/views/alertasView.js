@@ -25,6 +25,7 @@ export function renderAlertas() {
         <input type="text" placeholder="Escribe tu pregunta..." />
         <button>Preguntar</button>
       </div>
+      <button id="openLeaderBtn" class="leader-btn" style="margin-top:10px;">Líder</button>
     </section>
   `;
 }
