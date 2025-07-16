@@ -1,6 +1,16 @@
-import { getCurrentLeader, setCurrentLeader } from "../auth/leaderSession.js";
+import {
+  getCurrentLeader,
+  setCurrentLeader,
+  clearCurrentLeader,
+} from "../auth/leaderSession.js";
 import { LEADERS } from "../constants.js";
-import { addAlert, getAlertsByAuthor, updateAlert, deleteAlert } from "../modules/alertManager.js";
+import {
+  addAlert,
+  getAlertsByAuthor,
+  updateAlert,
+  deleteAlert,
+} from "../modules/alertManager.js";
+import { renderAlertas } from "./alertasView.js";
 
 function showAuthModal() {
   const modal = document.getElementById("leader-auth-modal");
@@ -26,7 +36,7 @@ function setupAuth() {
     }
     setCurrentLeader(name);
     hideAuthModal();
-    renderAlertSection();
+    renderLeaderSection();
   });
 }
 
@@ -73,7 +83,7 @@ function renderAlertsList() {
   datos.forEach((a) => list.appendChild(createAlertElement(a, leader)));
 }
 
-function renderAlertSection() {
+function renderLeaderSection() {
   const container = document.getElementById("content");
   if (!container) return;
   const leader = getCurrentLeader();
@@ -84,6 +94,7 @@ function renderAlertSection() {
   container.innerHTML = `
     <section class="dashboard-section" id="leader-alerts-section">
       <h2>Mis Alertas</h2>
+      <button id="exitLeaderBtn" style="margin-bottom:10px;">Salir</button>
       <div id="alertList"></div>
       <form id="alertForm">
         <div>Autor: <span id="alertAuthor">${leader}</span></div>
@@ -104,24 +115,35 @@ function renderAlertSection() {
     msgInput.value = "";
     renderAlertsList();
   });
+  document
+    .getElementById("exitLeaderBtn")
+    .addEventListener("click", () => {
+      clearCurrentLeader();
+      container.innerHTML = renderAlertas();
+      attachLeaderButton();
+    });
   renderAlertsList();
 }
 
-function checkSectionLoad() {
-  const cont = document.getElementById("content");
-  if (!cont) return;
-  const h2 = cont.querySelector("h2");
-  if (h2 && h2.textContent.trim() === "Alertas" && !document.getElementById("leader-alerts-section")) {
-    renderAlertSection();
-  }
+function attachLeaderButton() {
+  const btn = document.getElementById("openLeaderBtn");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const leader = getCurrentLeader();
+    if (leader) {
+      renderLeaderSection();
+    } else {
+      showAuthModal();
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   setupAuth();
   const target = document.getElementById("content");
   if (target) {
-    const observer = new MutationObserver(checkSectionLoad);
+    const observer = new MutationObserver(attachLeaderButton);
     observer.observe(target, { childList: true, subtree: true });
   }
-  checkSectionLoad();
+  attachLeaderButton();
 });
