@@ -1,18 +1,14 @@
 import { sanitize } from "../utils/sanitize.js";
+import { readJSON, writeJSON } from "../utils/storageUtil.js";
 
 const STORAGE_KEY = "cubo_alerts";
 
 function loadAll() {
-  try {
-    const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    return data && typeof data === "object" ? data : {};
-  } catch {
-    return {};
-  }
+  return readJSON(STORAGE_KEY) || {};
 }
 
 function saveAll(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  writeJSON(STORAGE_KEY, data);
 }
 
 export function getAlertsByAuthor(author) {
