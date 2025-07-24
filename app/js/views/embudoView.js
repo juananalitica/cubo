@@ -1,4 +1,5 @@
 import { buscarRespuesta, FALLBACK } from "../qna.js";
+import { initEmbudo } from "../dashboard.js";
 
 export function renderEmbudo() {
   setTimeout(() => {
@@ -15,13 +16,15 @@ export function renderEmbudo() {
       respuesta.className =
         resultado === FALLBACK ? "mensaje-fallback" : "respuesta-texto";
     });
+
+    initEmbudo();
   });
 
   return `
-    <section class="dashboard-section embudo-section">
-      <h2>Embudo</h2>
-      <img src="app/images/indicadores/indicador1.png" alt="Indicador de Embudo" class="indicador-img">
-      <div class="question-box">
+    <section id="Embudo" class="dashboard-section embudo-section p-4 overflow-y-auto">
+      <h2 class="text-xl font-bold text-gray-800 mb-2">Indicador de Embudo</h2>
+      <div id="contenedor-Embudo" class="bg-white p-4 rounded shadow"></div>
+      <div class="question-box mt-4">
         <input type="text" placeholder="Escribe tu pregunta..." />
         <button>Preguntar</button>
       </div>
