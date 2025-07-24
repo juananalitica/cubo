@@ -1,5 +1,5 @@
 import { buscarRespuesta, FALLBACK } from "../qna.js";
-import { cargarBloqueImagen, fechaHoyYYYYMMDD } from "../utils/imageLoader.js";
+import { initEmbudo } from "../dashboard.js";
 
 export function renderEmbudo() {
   setTimeout(() => {
@@ -17,21 +17,27 @@ export function renderEmbudo() {
         resultado === FALLBACK ? "mensaje-fallback" : "respuesta-texto";
     });
 
-    const ruta = `imagenes/embudo_${fechaHoyYYYYMMDD()}.png`;
-    const fallbackHtml = `
-        <p class="text-gray-500">No se encontr\u00f3 el gr\u00e1fico del embudo para hoy.</p>
-        <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-          Ver informe completo
-        </button>
-      `;
-    cargarBloqueImagen("contenedor-Embudo", ruta, fallbackHtml);
+    initEmbudo();
   });
 
   return `
     <section id="Embudo" class="dashboard-section embudo-section p-4">
-      <h2 class="text-xl font-bold text-gray-800 mb-2">Indicador de Embudo</h2>
-      <div id="contenedor-Embudo" class="bg-white p-4 rounded shadow"></div>
-      <div class="question-box">
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Embudo Financiero</h2>
+      <div class="mb-4 flex items-center space-x-2">
+        <label for="embudo-city" class="font-medium">Ciudad:</label>
+        <select id="embudo-city" class="border rounded px-2 py-1">
+          <option value="medellin">Medellín</option>
+          <option value="bogota">Bogotá</option>
+          <option value="cali">Cali</option>
+        </select>
+        <span id="embudo-balance" class="ml-auto text-lg font-semibold"></span>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        <canvas id="embudo-monthlyChart"></canvas>
+        <canvas id="embudo-donutChart"></canvas>
+        <canvas id="embudo-trendChart" class="md:col-span-3"></canvas>
+      </div>
+      <div class="question-box mt-4">
         <input type="text" placeholder="Escribe tu pregunta..." />
         <button>Preguntar</button>
       </div>
