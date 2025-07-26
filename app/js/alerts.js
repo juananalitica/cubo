@@ -48,6 +48,7 @@ export function renderVistaGeneralAlertas() {
 
   const header = document.createElement("h2");
   header.textContent = "Vista General de Alertas";
+  header.className = "text-xl font-semibold mb-4";
   section.appendChild(header);
 
   for (const autor of Object.keys(data)) {
@@ -56,6 +57,7 @@ export function renderVistaGeneralAlertas() {
 
     const h3 = document.createElement("h3");
     h3.textContent = autor;
+    h3.className = "mb-2 font-semibold";
     group.appendChild(h3);
 
     const alerts = (data[autor] || []).slice().sort((a, b) => {
