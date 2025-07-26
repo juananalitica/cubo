@@ -93,13 +93,13 @@ function renderLeaderSection() {
   }
   container.innerHTML = `
     <section class="dashboard-section" id="leader-alerts-section">
-      <h2>Mis Alertas</h2>
-      <button id="exitLeaderBtn" style="margin-bottom:10px;">Salir</button>
-      <div id="alertList"></div>
-      <form id="alertForm">
+      <h2 class="text-xl font-semibold mb-4">Mis Alertas</h2>
+      <button id="exitLeaderBtn" class="mb-4 px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Salir</button>
+      <div id="alertList" class="space-y-2"></div>
+      <form id="alertForm" class="space-y-2">
         <div>Autor: <span id="alertAuthor">${leader}</span></div>
-        <textarea id="alertMessage" style="width:100%;height:60px;"></textarea>
-        <button type="submit">Agregar</button>
+        <textarea id="alertMessage" class="w-full h-24 border border-gray-300 rounded-md p-2"></textarea>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Agregar</button>
       </form>
     </section>
   `;
