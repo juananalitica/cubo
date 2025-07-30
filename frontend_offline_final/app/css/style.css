@@ -1,0 +1,153 @@
+/* Estilos base para el dashboard Cubo */
+
+:root {
+    --sidebar-width: 200px;
+    --sidebar-collapsed-width: 60px;
+    --bg-color: #f9fafb;
+    --sidebar-bg: #f3f4f6;
+    --sidebar-active: #e5e7eb;
+    --text-color: #374151;
+    --transition-speed: 0.3s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-active);
+    transition: width var(--transition-speed);
+    overflow: hidden;
+}
+
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+.toggle-btn {
+    width: 100%;
+    padding: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: background-color var(--transition-speed);
+}
+
+.menu li a:hover,
+.menu li a.active {
+    background-color: var(--sidebar-active);
+}
+
+.menu li a .label {
+    margin-left: 10px;
+}
+
+.sidebar.collapsed .label {
+    display: none;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.dashboard-section {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    margin-bottom: 24px;
+}
+
+.question-box {
+    margin-top: 16px;
+    display: flex;
+    gap: 8px;
+}
+
+.question-box button {
+    margin-left: 0;
+}
+
+.respuesta-texto,
+.mensaje-fallback {
+    margin-top: 8px;
+    display: block;
+}
+
+.mensaje-fallback {
+    color: #6b7280;
+    font-style: italic;
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        position: fixed;
+        height: 100%;
+        z-index: 1000;
+    }
+    .content {
+        margin-left: var(--sidebar-width);
+    }
+    .sidebar.collapsed + .content {
+        margin-left: var(--sidebar-collapsed-width);
+    }
+}
+
+/* Estilos para la vista general de alertas */
+.alert-group {
+    margin-bottom: 20px;
+}
+
+.alert-group h3 {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.alert-card {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.alert-card small {
+    color: #6b7280;
+    display: block;
+    margin-top: 4px;
+}
+
+.alert-section-link {
+    color: #2563eb;
+    text-decoration: underline;
+    cursor: pointer;
+}
